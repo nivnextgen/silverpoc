@@ -23,6 +23,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -34,7 +36,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Map;
 
-@Controller
+@ComponentScan(basePackages = {"com.controller"})
 @SpringBootApplication
 public class Main {
 
@@ -47,12 +49,6 @@ public class Main {
   public static void main(String[] args) throws Exception {
     SpringApplication.run(Main.class, args);
   }
-
-  @RequestMapping("/")
-  String index() {
-    return "index";
-  }
-  
 
   @RequestMapping("/db")
   String db(Map<String, Object> model) {
