@@ -24,8 +24,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.sql.DataSource;
@@ -36,7 +34,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Map;
 
-@ComponentScan(basePackages = {"com.controller"})
+@ComponentScan(basePackages = {"com.controller","com.service","com.model","com.repository"})
 @SpringBootApplication
 public class Main {
 
@@ -53,6 +51,7 @@ public class Main {
   @RequestMapping("/db")
   String db(Map<String, Object> model) {
     try (Connection connection = dataSource.getConnection()) {
+    	System.out.println("******In DB connection *****");
       Statement stmt = connection.createStatement();
       stmt.executeUpdate("CREATE TABLE IF NOT EXISTS ticks (tick timestamp)");
       stmt.executeUpdate("INSERT INTO ticks VALUES (now())");

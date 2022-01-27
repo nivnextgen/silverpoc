@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Niv</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style>
+header {
+  background: #081c64;
+  height: 60px;
+  color: white;
+}body {
+  margin:0;
+  padding:0;
+  font-family: Sans-Serif;
+  line-height: 1.5em;
+}
+.logoutLblPos{
+   position:fixed;
+   right:10px;
+   top:5px;
+}
+
+.homebutton{
+   position:fixed;
+   left:10px;
+   top:5px;
+}
+footer {
+  text-align: center;
+  background-color: #081c64;
+  color: white;
+  position: absolute;
+  width: 100%;
+  height: 5rem;
+}
+
+
+html, body {
+min-height: 100%;
+}
+body, input {
+padding: 0;
+margin: 0;
+outline: none;
+font-family: Roboto, Arial, sans-serif;
+font-size: 14px;
+color: #666;
+line-height: 22px;
+}
+h1, h4 {
+font-weight: 400;
+}
+h4 {
+margin: 22px 0 4px;
+}
+h5 {
+text-transform: uppercase;
+color: #095484;
+}
+.main-block {
+display: flex;
+justify-content: center;
+align-items: center;
+padding: 3px;
+}
+form {
+width: 100%;
+padding: 20px;
+box-shadow: 0 2px 5px #ccc;
+background: #fff;
+}
+input {
+width: calc(100% - 10px);
+padding: 5px;
+border-radius: 3px;
+border: 1px solid #ccc;
+vertical-align: middle;
+}
+textarea {
+width: calc(100% - 6px);
+outline: none;
+}
+input:hover, textarea:hover {
+outline: none;
+border: 1px solid #095484;
+}
+th, td {
+width: 15%;
+padding: 15px 0;
+border-bottom: 1px solid #ccc;
+text-align: center;
+vertical-align: unset;
+line-height: 18px;
+font-weight: 400;
+word-break: break-all;
+}
+.additional-question th, .additional-question td {
+width: 38%;
+}
+.course-rate th, .course-rate td {
+width: 19%;
+}
+.first-col, .additional-question  .first-col, .course-rate .first-col {
+width: 24%;
+text-align: left;
+}
+.question, .comments {
+margin: 15px 0 5px;
+}
+.question-answer label {
+display: inline-block;
+padding: 0 20px 15px 0;
+}
+.question-answer input {
+width: auto;
+}
+.question-answer, table {
+width: 100%;
+}
+.btn-block {
+margin-top: 20px;
+text-align: center;
+}
+button {
+width: 150px;
+padding: 10px;
+border: none;
+border-radius: 5px;
+background: #095484;
+font-size: 16px;
+color: #fff;
+cursor: pointer;
+}
+button:hover {
+background: #0666a3;
+}
+@media (min-width: 568px) {
+th, td {
+word-break: keep-all;
+}
+}
+</style>
+
+
+</style>
+</head>
+
+<body>
+
+<!-- Header -->
+<header>
+  <h3></h3>
+  <p class="homebutton" href="/reportPage">Niv  Next Gen</p>
+  <p class="logoutLblPos">Logout</p>
+</header>
+
+<!-- Body -->
+
+<div class="main-block">
+    <form method="Post">
+        <h1>Evaluation Survey</h1>
+        <h4>Student</h4>
+        <input type="text" size=25 name="studentname"/>
+
+
+        <table>
+          <tr>
+            <th class="first-col"></th>
+            <th>Never</th>
+            <th>Occasionally</th>
+            <th>Frequently</th>
+            <th>Always</th>
+          </tr>
+
+          <tr>
+            <td class="question1">1. Works as part of a team; is helpful with others</td>
+            <td><input type="radio" value="4" name="question1" /></td>
+            <td><input type="radio" value="3" name="question1" /></td>
+            <td><input type="radio" value="2" name="question1" /></td>
+            <td><input type="radio" value="1" name="question1" /></td>
+          </tr>
+          <tr>
+            <td class="question2">2. Resolves peer conflicts without teacher intervention.</td>
+            <td><input type="radio" value="4" name="question2" /></td>
+            <td><input type="radio" value="3" name="question2" /></td>
+            <td><input type="radio" value="2" name="question2" /></td>
+            <td><input type="radio" value="1" name="question2" /></td>
+          </tr>
+          <tr>
+            <td class="question3">3. Handles frustration without outbursts or aggressive behavior.</td>
+            <td><input type="radio" value="4" name="question3" /></td>
+            <td><input type="radio" value="3" name="question3" /></td>
+            <td><input type="radio" value="2" name="question3" /></td>
+            <td><input type="radio" value="1" name="question3" /></td>
+          </tr>
+
+          <tr>
+            <td class="question4">4. Willingly plays with peers in a variety of games and activities.</td>
+            <td><input type="radio" value="4" name="question4" /></td>
+            <td><input type="radio" value="3" name="question4" /></td>
+            <td><input type="radio" value="2" name="question4" /></td>
+            <td><input type="radio" value="1" name="question4" /></td>
+          </tr>
+
+          <tr>
+            <td class="question5">5. Enters into play with peers without disrupting ongoing activity.</td>
+            <td><input type="radio" value="4" name="question5" /></td>
+            <td><input type="radio" value="3" name="question5" /></td>
+            <td><input type="radio" value="2" name="question5" /></td>
+            <td><input type="radio" value="1" name="question5" /></td>
+          </tr>
+
+          <tr>
+            <td class="question6">6. Has friends and chooses to be with them when possible.</td>
+            <td><input type="radio" value="4" name="question6" /></td>
+            <td><input type="radio" value="3" name="question6" /></td>
+            <td><input type="radio" value="2" name="question6" /></td>
+            <td><input type="radio" value="1" name="question6" /></td>
+          </tr>
+          <tr>
+            <td class="question7">7. Uses and understands humor when playing with peers.
+          </td>
+            <td><input type="radio" value="4" name="question7" /></td>
+            <td><input type="radio" value="3" name="question7" /></td>
+            <td><input type="radio" value="2" name="question7" /></td>
+            <td><input type="radio" value="1" name="question7" /></td>
+          </tr>
+          <tr>
+            <td class="question8">8. Maintains appropriate “personal space” (doesn’t stand too close to others during conversation).</td>
+            <td><input type="radio" value="4" name="question8" /></td>
+            <td><input type="radio" value="3" name="question8" /></td>
+            <td><input type="radio" value="2" name="question8" /></td>
+            <td><input type="radio" value="1" name="question8" /></td>
+          </tr>
+          <tr>
+            <td class="question9">9. Maintains appropriate eye contact during conversation.</td>
+            <td><input type="radio" value="4" name="question9" /></td>
+            <td><input type="radio" value="3" name="question9" /></td>
+            <td><input type="radio" value="2" name="question9" /></td>
+            <td><input type="radio" value="1" name="question9" /></td>
+          </tr>
+          <tr>
+            <td class="question10">10. Shifts conversation topics in accordance with peer interests; doesn’t stay stuck
+            on one topic.</td>
+            <td><input type="radio" value="4" name="question10" /></td>
+            <td><input type="radio" value="3" name="question10" /></td>
+            <td><input type="radio" value="2" name="question10" /></td>
+            <td><input type="radio" value="1" name="question10" /></td>
+          </tr>
+
+          <tr>
+          <td><input type="submit"></td>
+          </tr>
+        </table>
+    </form>
+</div>
+
+
+<!-- Footer -->
+<footer>
+  <p>Contact Us <a href="mailto:info@niv-thefoundation.com">Email</a></p>
+  <p>Copyright © 2022 NiV - All Rights Reserved.</p>
+</footer>
+
+</body>
+</html>
