@@ -1,0 +1,292 @@
+package com.service;
+
+import org.springframework.stereotype.Service;
+
+@Service
+public class FormDetailsService implements IFormDetailsService {
+
+	@Override
+	public boolean ansValues(int[] ansValues) {
+
+		for (int num : ansValues) {
+			System.out.println("The loop number is" + num);
+		}
+
+		return true;
+
+	}
+
+	// Constants dec scores
+	// For step 2
+	int SCO_RS, VIS_RS, HEA_RS, TOU_RS, TNS_RS, BOD_RS, BAL_RS, PLA_RS, FULL_RS;
+	String phase;
+	// For step 3
+	int tSOCScore, tVISScore, tHEAScore, tTOUScore, tTnSScore, tBODScore, tBALScore, tPLAScore, totFullScore;
+	int nivSOC, nivVIS, nivHEA, nivTOU, nivTnS, nivBOD, nivBAL, nivPLA, nivFullScore;
+	double engISOC, engIVIS, engIHEA, engITOU, engITnS, engIBOD, engIBAL, engIPLA, engITotal;
+	double attISOC, attIVIS, attIHEA, attITOU, attITnS, attIBOD, attIBAL, attIPLA, attITotal;
+	double perfIndex;
+
+	// Step 1 Storing all the values in "form_eval"
+	public boolean formEval() {
+
+		return true;
+	}
+
+	// Step 2 Calculating group raw scores and store in "eval_rawscore"
+	public boolean rawScoreEval() {
+
+		FULL_RS = VIS_RS + HEA_RS + TOU_RS + TNS_RS + BOD_RS + BAL_RS;
+
+		return true;
+	}
+
+	// Step 3 logic for making total scores and storing them in total_scores
+	// Need to eval TSCORE, NIVSCORE
+
+	// Step 3.1 eval TSCORE for all modules
+	public boolean tScore() {
+
+			tSOCScore = tScoreRange("SCO_RS",SCO_RS);
+			tVISScore= tScoreRange("VIS_RS",VIS_RS);
+			tHEAScore= tScoreRange("HEA_RS",HEA_RS);
+			tTOUScore= tScoreRange("TOU_RS",TOU_RS);
+			tBODScore= tScoreRange("BOD_RS",BOD_RS);
+			tBALScore= tScoreRange("BAL_RS",BAL_RS);
+			tPLAScore= tScoreRange("PLA_RS",PLA_RS);
+			totFullScore= tScoreRange("FULL_RS",FULL_RS);
+		
+		return true;
+	}
+
+	// Step 3.2 eval NIVSCORE for all modules
+	public boolean nivScore() {
+		
+		
+
+		return true;
+	}
+
+	// Step 3.3 eval ENGINDX & ATTINDX for all modules
+	public boolean indexScores() {
+
+		engISOC = (15.15 * nivSOC) / 100;
+		engIVIS = (15.15 * nivVIS) / 100;
+		engIHEA = (15.15 * nivHEA) / 100;
+		engITOU = (11.36 * nivTOU) / 100;
+		engIBOD = (13.63 * nivBOD) / 100;
+		engIBAL = (14.40 * nivBAL) / 100;
+		engIPLA = (15.15 * nivPLA) / 100;
+		engITotal = engISOC + engIVIS + engIHEA + engITOU + engIBOD + engIBAL + engIPLA;
+
+		attISOC = (18.51 * nivSOC) / 100;
+		attIVIS = (24.70 * nivVIS) / 100;
+		attIHEA = (24.70 * nivHEA) / 100;
+		attITOU = (3.7 * nivTOU) / 100;
+		attIBOD = (1.23 * nivBOD) / 100;
+		attIBAL = (2.47 * nivBAL) / 100;
+		attIPLA = (24.70 * nivPLA) / 100;
+		attITotal = attISOC + attIVIS + attIHEA + attITOU + attIBOD + attIBAL + attIPLA;
+
+		return true;
+	}
+
+	// Step 4 eval performance index
+	public double perfIndexScores() {
+		perfIndex = (engITotal + engITotal) / 2;
+
+		return perfIndex;
+	}
+	
+	
+	// Supporting methods
+	
+	
+	// T score Range
+	public int tScoreRange(String scoreType, int SCO_RS) {
+		
+		if(scoreType.equals("SOC")) {
+			switch (SCO_RS) {
+			case 40: return 80;
+			case 39: return 80;
+			case 38: return 78;
+			case 37: return 77;
+			case 36: return 76;
+			case 35: return 74;
+			case 34: return 73;
+			case 33: return 72;
+			case 32: return 70;
+			case 31: return 69;
+			case 30: return 68;
+			case 29: return 66;
+			case 28: return 65;
+			case 27: return 64;
+			case 26: return 63;
+			case 25: return 62;
+			case 24: return 61;
+			case 23: return 60;
+			case 22: return 59;
+			case 21: return 57;
+			case 20: return 56;
+			case 19: return 54;
+			case 18: return 53;
+			case 17: return 52;
+			case 16: return 50;
+			case 15: return 49;
+			case 14: return 47;
+			case 13: return 45;
+			case 12: return 44;
+			case 11: return 41;
+			case 10: return 40;
+			default: break;
+			}
+		}
+		
+		if(scoreType.equals("VIS_RS")) {
+			switch (VIS_RS) {
+			case 26: return 80;
+			case 28: return 80;
+			case 25: return 79;
+			case 24: return 78;
+			case 23: return 77;
+			case 22: return 77;
+			case 21: return 76;
+			case 20: return 76;
+			case 19: return 75;
+			case 18: return 73;
+			case 17: return 72;
+			case 16: return 70;
+			case 15: return 67;
+			case 14: return 65;
+			case 13: return 64;
+			case 12: return 62;
+			case 11: return 59;
+			case 10: return 57;
+			case 9: return 53;
+			case 8: return 48;
+			case 7: return 40;
+			default: break;
+			}
+		}
+		
+		
+		if(scoreType.equals("HEA_RS")) {
+			switch (HEA_RS) {
+			case 28: return 80;
+			case 27: return 80;
+			case 26: return 80;
+			case 25: return 80;
+			case 24: return 80;
+			case 22: return 78;
+			case 23: return 78;
+			case 21: return 77;
+			case 19: return 76;
+			case 20: return 76;
+			case 18: return 75;
+			case 17: return 74;
+			case 16: return 72;
+			case 15: return 69;
+			case 14: return 67;
+			case 13: return 65;
+			case 12: return 63;
+			case 11: return 61;
+			case 10: return 59;
+			case 9: return 56;
+			case 8: return 52;
+			case 7: return 43;
+			default: break;
+			}
+		}
+		
+		if(scoreType.equals("TOU_RS")) {
+			switch (TOU_RS) {
+
+			default: break;
+			}
+		}
+		
+		if(scoreType.equals("BOD_RS")) {
+			switch (BOD_RS) {
+
+			default: break;
+			}
+		}
+		
+		if(scoreType.equals("BAL_RS")) {
+			switch (BAL_RS) {
+
+			default: break;
+			}
+		}
+		
+		if(scoreType.equals("PLA_RS")) {
+			switch (PLA_RS) {
+
+			default: break;
+			}
+		}
+		
+		if(scoreType.equals("FULL_RS")) {
+			switch (FULL_RS) {
+
+			default: break;
+			}
+		}
+		
+		return 1;
+	}
+	
+	// NivScore Range
+	
+	public int nivScoreRange(int tScoreValue) {
+	
+		switch (tScoreValue) {
+		case 40: return 800;
+		case 41: return 800;
+		case 42: return 800;
+		case 43: return 770;
+		case 44: return 750;
+		case 45: return 720;
+		case 46: return 700;
+		case 47: return 670;
+		case 48: return 650;
+		case 49: return 625;
+		case 50: return 600;
+		case 51: return 595;
+		case 52: return 590;
+		case 53: return 582;
+		case 54: return 570;
+		case 55: return 555;
+		case 56: return 540;
+		case 57: return 525;
+		case 58: return 510;
+		case 59: return 500;
+		case 60: return 485;
+		case 61: return 480;
+		case 62: return 470;
+		case 63: return 460;
+		case 64: return 465;
+		case 65: return 450;
+		case 66: return 435;
+		case 67: return 420;
+		case 68: return 410;
+		case 69: return 400;
+		case 70: return 387;
+		case 71: return 385;
+		case 72: return 380;
+		case 73: return 370;
+		case 74: return 360;
+		case 75: return 350;
+		case 76: return 340;
+		case 77: return 330;
+		case 78: return 320;
+		case 79: return 310;
+		case 80: return 300;
+		default: break;
+		}
+		
+		return 1;
+		
+	}
+
+}

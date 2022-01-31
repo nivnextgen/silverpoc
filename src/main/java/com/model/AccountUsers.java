@@ -70,4 +70,12 @@ public class AccountUsers {
 		COMMENTS = cOMMENTS;
 	}
 
+	@Override
+	public String toString() {
+		return "AccountUsers [USER_ID=" + USER_ID + ", USERNAME=" + USERNAME + ", UPASSWORD=" + UPASSWORD + ", EMAIL="
+				+ EMAIL + ", IS_ACTIVE=" + IS_ACTIVE + ", COMMENTS=" + COMMENTS + "]";
+	}
+	
+	
+
 }

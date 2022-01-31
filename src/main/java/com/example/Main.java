@@ -45,7 +45,10 @@ public class Main {
   private DataSource dataSource;
 
   public static void main(String[] args) throws Exception {
+  	System.out.println("******In Main before *****");
     SpringApplication.run(Main.class, args);
+	System.out.println("******In Main after *****");
+
   }
 
   @RequestMapping("/db")
