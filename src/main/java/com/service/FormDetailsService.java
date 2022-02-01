@@ -200,36 +200,194 @@ public class FormDetailsService implements IFormDetailsService {
 		
 		if(scoreType.equals("TOU_RS")) {
 			switch (TOU_RS) {
-
+			case 32: return 80;
+			case 31: return 80;
+			case 30: return 80;
+			case 29: return 80;
+			case 28: return 80;
+			case 27: return 80;
+			case 26: return 80;
+			case 25: return 80;
+			case 24: return 79;
+			case 23: return 79;
+			case 22: return 78;
+			case 21: return 78;
+			case 20: return 76;
+			case 19: return 75;
+			case 18: return 73;
+			case 17: return 72;
+			case 16: return 70;
+			case 15: return 68;
+			case 14: return 67;
+			case 13: return 65;
+			case 12: return 63;
+			case 11: return 61;
+			case 10: return 58;
+			case 9: return 53;
+			case 8: return 44;
 			default: break;
 			}
 		}
 		
 		if(scoreType.equals("BOD_RS")) {
 			switch (BOD_RS) {
-
+			case 32: return 80;
+			case 31: return 80;
+			case 30: return 80;
+			case 29: return 80;
+			case 28: return 80;
+			case 27: return 80;
+			case 26: return 80;
+			case 25: return 80;
+			case 24: return 79;
+			case 23: return 79;
+			case 22: return 77;
+			case 21: return 75;
+			case 20: return 72;
+			case 19: return 70;
+			case 18: return 69;
+			case 17: return 68;
+			case 16: return 67;
+			case 15: return 66;
+			case 14: return 65;
+			case 13: return 63;
+			case 12: return 61;
+			case 11: return 59;
+			case 10: return 57;
+			case 9: return 54;
+			case 8: return 52;
+			case 7: return 42;
 			default: break;
 			}
 		}
 		
 		if(scoreType.equals("BAL_RS")) {
 			switch (BAL_RS) {
-
+			case 36: return 80;
+			case 35: return 80;
+			case 34: return 80;
+			case 33: return 79;
+			case 32: return 78;
+			case 31: return 78;
+			case 30: return 76;
+			case 29: return 75;
+			case 28: return 75;
+			case 27: return 74;
+			case 26: return 73;
+			case 25: return 72;
+			case 24: return 72;
+			case 23: return 71;
+			case 22: return 70;
+			case 21: return 69;
+			case 20: return 67;
+			case 19: return 66;
+			case 18: return 64;
+			case 17: return 63;
+			case 16: return 61;
+			case 15: return 60;
+			case 14: return 58;
+			case 13: return 56;
+			case 12: return 53;
+			case 11: return 51;
+			case 10: return 47;
+			case 9: return 40;
 			default: break;
 			}
 		}
 		
 		if(scoreType.equals("PLA_RS")) {
 			switch (PLA_RS) {
-
+			case 40: return 80;
+			case 39: return 79;
+			case 38: return 78;
+			case 37: return 76;
+			case 36: return 75;
+			case 35: return 74;
+			case 34: return 74;
+			case 33: return 73;
+			case 32: return 73;
+			case 31: return 72;
+			case 30: return 72;
+			case 29: return 71;
+			case 28: return 70;
+			case 27: return 68;
+			case 26: return 67;
+			case 25: return 66;
+			case 24: return 64;
+			case 23: return 63;
+			case 22: return 62;
+			case 21: return 62;
+			case 20: return 61;
+			case 19: return 60;
+			case 18: return 59;
+			case 17: return 58;
+			case 16: return 57;
+			case 15: return 55;
+			case 14: return 54;
+			case 13: return 52;
+			case 12: return 50;
+			case 11: return 47;
+			case 10: return 40;
 			default: break;
 			}
 		}
 		
 		if(scoreType.equals("FULL_RS")) {
 			switch (FULL_RS) {
+	//		case 130 -- case 168: return 80;
+	//		case 119 -- case 129: return 79;
+			case 117: case 118: return 78;
+			case 115: case 116: return 77;
+	//		case 109 -- case 114: return 76;
+			case 108: return 75;
+	//		case 99 -- case 107: return 74;
+			case 96: case 97: case 98: return 73;
+			case 94: case 95: return 72;
+	//		case 88: -- case 93: return 71;
+			case 87: return 70;
+			case 84: case 85: case 86: return 69;
+			case 82: case 83: return 68;
+			case 80: case 81: return 67;
+			case 78: case 79: return 66;
+			case 74: case 75: case 76: case 77: return 65;
+			case 71: case 23: case 73: return 64;
+			case 69: case 70: return 63;
+			case 67: case 68: return 62;
+			case 64: case 66: return 61;
+			case 62: case 63: return 60;
+			case 60: case 61: return 59;
+			case 58: case 59: return 58;
+			case 56: case 57: return 57;
+			case 55: return 56;
+			case 54: return 55;
+			case 53: return 55;
+			case 52: return 54;
+			case 51: return 53;
+			case 50: return 52;
+			case 49: return 51;
+			case 48: return 50;
+			case 47: return 49;
+			case 46: return 47;
+			case 45: return 45;
+			case 44: return 43;
+			case 43: return 40;
+			case 42: return 40;
+			// 			
 
-			default: break;
+			default: 
+				if (FULL_RS >= 130 && FULL_RS <= 168)
+					return 80; 
+				else if (FULL_RS >= 119  && FULL_RS <= 129)
+					return 79; 
+				else if (FULL_RS >= 109 && FULL_RS <= 114)
+					return 76; 
+				else if (FULL_RS >= 99 && FULL_RS <=  107)
+					return 74; 
+				else if (FULL_RS >= 88 && FULL_RS <= 93)
+					return 71; 
+//				else if (FULL_RS >=  && FULL_RS <= )
+//					return 0; 
+				break;
 			}
 		}
 		
