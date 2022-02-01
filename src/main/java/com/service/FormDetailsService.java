@@ -62,6 +62,15 @@ public class FormDetailsService implements IFormDetailsService {
 	// Step 3.2 eval NIVSCORE for all modules
 	public boolean nivScore() {
 		
+		nivSOC = nivScoreRange(tSOCScore);
+		nivVIS = nivScoreRange(tVISScore);
+		nivHEA = nivScoreRange(tHEAScore);
+		nivTOU = nivScoreRange(tTOUScore);
+		nivTnS = nivScoreRange(tTnSScore);
+		nivBOD = nivScoreRange(tBODScore);
+		nivBAL = nivScoreRange(tBALScore);
+		nivPLA = nivScoreRange(tPLAScore);
+		nivFullScore = nivScoreRange(totFullScore);
 		
 
 		return true;
