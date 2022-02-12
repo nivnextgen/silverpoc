@@ -9,9 +9,23 @@ public class FormDetailsService implements IFormDetailsService {
 	public boolean ansValues(int[] ansValues) {
 
 		for (int num : ansValues) {
-			System.out.println("The loop number is" + num);
+			System.out.println("The loop all the solutions are  " + num);
 		}
-
+		
+		// Raw Data to DB
+		
+		// Calculate Raw score and to DB
+		boolean rawScoreAssert = rawScoreEval(ansValues);
+		
+		// Calculate T score and to DB
+		boolean tScoreAssert = tScore();
+		
+		// Calculate NIV score and to DB
+		boolean nivScoreAssert = nivScore();
+		
+		// Calculate index scores and to DB
+		boolean indexScoreAssert = indexScores();
+		
 		return true;
 
 	}
@@ -29,15 +43,78 @@ public class FormDetailsService implements IFormDetailsService {
 
 	// Step 1 Storing all the values in "form_eval"
 	public boolean formEval() {
-
+		
+		
+		
+				
 		return true;
 	}
 
 	// Step 2 Calculating group raw scores and store in "eval_rawscore"
-	public boolean rawScoreEval() {
+	public boolean rawScoreEval(int[] studentData) {
 
+		
+		System.out.println("*********  Raw scores are as follows ***********");
+		
+		for (int i = 0; i < 10; i++) {
+			SCO_RS = studentData[i] + SCO_RS;
+		}
+		System.out.println("SCO_RS calculated score is " + SCO_RS);
+		
+		for (int i = 10; i < 17; i++) {
+			VIS_RS = studentData[i] + VIS_RS;
+		}
+		System.out.println("  ");
+		System.out.println("VIS_RS calculated score is " + VIS_RS);
+		
+		for (int i = 17; i < 24; i++) {
+			HEA_RS = studentData[i] + HEA_RS ;
+		}
+		System.out.println("  ");
+		System.out.println("HEA_RS calculated score is " +HEA_RS );
+		
+		for (int i = 24; i < 32; i++) {
+			TOU_RS = studentData[i] + TOU_RS ;
+		}
+		System.out.println("  ");
+		System.out.println("TOU_RS calculated score is " + TOU_RS);
+		
+		for (int i = 32 ; i < 36 ; i++) {
+			TNS_RS = studentData[i] + TNS_RS;
+		}
+		System.out.println("  ");
+		System.out.println("TNS_RS calculated score is " + TNS_RS);
+		
+		
+		for (int i = 36 ; i < 43; i++) {
+			BOD_RS = studentData[i] + BOD_RS;
+		}
+		System.out.println("  ");
+		System.out.println("BOD_RS calculated score is " + BOD_RS);
+		
+		
+		for (int i = 43; i < 52; i++) {
+			BAL_RS = studentData[i] + BAL_RS;
+		}
+		System.out.println("  ");
+		System.out.println("BAL_RS calculated score is " + BAL_RS);
+		
+		
+		for (int i = 52; i < 62; i++) {
+			PLA_RS = studentData[i] + PLA_RS;
+		}
+		System.out.println("  ");
+		System.out.println("PLA_RS calculated score is " + PLA_RS);
+		
+		
 		FULL_RS = VIS_RS + HEA_RS + TOU_RS + TNS_RS + BOD_RS + BAL_RS;
+		
+		System.out.println("FULL_RS calculated score is " + FULL_RS);
+		
+		
 
+		System.out.println("*********  END ***********");
+		
 		return true;
 	}
 
@@ -55,6 +132,21 @@ public class FormDetailsService implements IFormDetailsService {
 			tBALScore= tScoreRange("BAL_RS",BAL_RS);
 			tPLAScore= tScoreRange("PLA_RS",PLA_RS);
 			totFullScore= tScoreRange("FULL_RS",FULL_RS);
+			
+			System.out.println("  ");
+			System.out.println("*********  T scores are as follows ***********");
+			
+			System.out.println("tSOCScore score is " + tSOCScore);
+			System.out.println("tVISScore score is " + tVISScore);
+			System.out.println("tHEAScore score is " + tHEAScore);
+			System.out.println("tTOUScore score is " + tTOUScore);
+			System.out.println("tBODScore score is " + tBODScore);
+			System.out.println("tBALScore score is " + tBALScore);
+			System.out.println("tPLAScore score is " + tPLAScore);
+			System.out.println("totFullScore score is " + totFullScore);
+			
+			System.out.println("*********  END ***********");
+
 		
 		return true;
 	}
@@ -72,49 +164,94 @@ public class FormDetailsService implements IFormDetailsService {
 		nivPLA = nivScoreRange(tPLAScore);
 		nivFullScore = nivScoreRange(totFullScore);
 		
+		System.out.println("  ");
+		System.out.println("*********  Niv scores are as follows ***********");
+		
+		System.out.println("nivSOC score is " + nivSOC);
+		System.out.println("nivVIS score is " + nivVIS);
+		System.out.println("nivHEA score is " + nivHEA);
+		System.out.println("nivTOU score is " + nivTOU);
+		System.out.println("nivTnS score is " + nivTnS);
+		System.out.println("nivBOD score is " + nivBOD);
+		System.out.println("nivPLA score is " + nivPLA);
+		System.out.println("nivBAL score is " + nivBAL);
+		System.out.println("nivFullScore score is " + nivFullScore);
+		
+		System.out.println("*********  END ***********");
+		
 
 		return true;
 	}
 
-	// Step 3.3 eval ENGINDX & ATTINDX for all modules
+	// Step 3.3 eval ENGINDX, ATTINDX & PerfINDEX for all modules
 	public boolean indexScores() {
 
-		engISOC = (15.15 * nivSOC) / 100;
-		engIVIS = (15.15 * nivVIS) / 100;
-		engIHEA = (15.15 * nivHEA) / 100;
-		engITOU = (11.36 * nivTOU) / 100;
-		engIBOD = (13.63 * nivBOD) / 100;
-		engIBAL = (14.40 * nivBAL) / 100;
-		engIPLA = (15.15 * nivPLA) / 100;
+		engISOC = roundingNUmbers((15.15 * nivSOC) / 100);
+		engIVIS = roundingNUmbers((15.15 * nivVIS) / 100);
+		engIHEA = roundingNUmbers((15.15 * nivHEA) / 100);
+		engITOU = roundingNUmbers((11.36 * nivTOU) / 100);
+		engIBOD = roundingNUmbers((13.63 * nivBOD) / 100);
+		engIBAL = roundingNUmbers((14.40 * nivBAL) / 100);
+		engIPLA = roundingNUmbers((15.15 * nivPLA) / 100);
 		engITotal = engISOC + engIVIS + engIHEA + engITOU + engIBOD + engIBAL + engIPLA;
+		engITotal = roundingNUmbers(engITotal);
+		
+		System.out.println("  ");
+		System.out.println("*********  Engagement index scores are as follows ***********");
+		
+		System.out.println("engISOC score is " + engISOC);
+		System.out.println("engIVIS score is " + engIVIS);
+		System.out.println("engIHEA score is " + engIHEA);
+		System.out.println("engITOU score is " + engITOU);
+		System.out.println("engIBOD score is " + engIBOD);
+		System.out.println("engIBAL score is " + engIBAL);
+		System.out.println("engIPLA score is " + engIPLA);
+		System.out.println("engITotal score is " + engITotal);
+		
+		System.out.println("*********  END ***********");
 
-		attISOC = (18.51 * nivSOC) / 100;
-		attIVIS = (24.70 * nivVIS) / 100;
-		attIHEA = (24.70 * nivHEA) / 100;
-		attITOU = (3.7 * nivTOU) / 100;
-		attIBOD = (1.23 * nivBOD) / 100;
-		attIBAL = (2.47 * nivBAL) / 100;
-		attIPLA = (24.70 * nivPLA) / 100;
+		attISOC = roundingNUmbers((18.51 * nivSOC) / 100);
+		attIVIS = roundingNUmbers((24.70 * nivVIS) / 100);
+		attIHEA = roundingNUmbers((24.70 * nivHEA) / 100);
+		attITOU = roundingNUmbers((3.7 * nivTOU) / 100);
+		attIBOD = roundingNUmbers((1.23 * nivBOD) / 100);
+		attIBAL = roundingNUmbers((2.47 * nivBAL) / 100);
+		attIPLA = roundingNUmbers((24.70 * nivPLA) / 100);
 		attITotal = attISOC + attIVIS + attIHEA + attITOU + attIBOD + attIBAL + attIPLA;
-
+		attITotal = roundingNUmbers(attITotal);
+		System.out.println("  ");
+		System.out.println("*********  Attention index scores are as follows ***********");
+		
+		System.out.println("attISOC score is " + attISOC);
+		System.out.println("attIVIS score is " + attIVIS);
+		System.out.println("attIHEA score is " + attIHEA);
+		System.out.println("attITOU score is " + attITOU);
+		System.out.println("attIBOD score is " + attIBOD);
+		System.out.println("attIBAL score is " + attIBAL);
+		System.out.println("attIPLA score is " + attIPLA);
+		System.out.println("attITotal score is " + attITotal);
+		
+		System.out.println("*********  END ***********");
+		
+		// Step 4 eval performance index
+		perfIndex = (engITotal + engITotal) / 2;
+		System.out.println("  ");
+		System.out.println("*********  Performance index score is ***********");
+		System.out.println("perfIndex score is " + perfIndex);
+		System.out.println("*********  END ***********");
+		
 		return true;
 	}
 
-	// Step 4 eval performance index
-	public double perfIndexScores() {
-		perfIndex = (engITotal + engITotal) / 2;
-
-		return perfIndex;
-	}
 	
 	
-	// Supporting methods
+	// ***********     Supporting methods     *************
 	
 	
 	// T score Range
-	public int tScoreRange(String scoreType, int SCO_RS) {
+	public int tScoreRange(String scoreType, int inputScore) {
 		
-		if(scoreType.equals("SOC")) {
+		if(scoreType.equals("SCO_RS")) {
 			switch (SCO_RS) {
 			case 40: return 80;
 			case 39: return 80;
@@ -400,7 +537,7 @@ public class FormDetailsService implements IFormDetailsService {
 			}
 		}
 		
-		return 1;
+		return 0;
 	}
 	
 	// NivScore Range
@@ -452,8 +589,13 @@ public class FormDetailsService implements IFormDetailsService {
 		default: break;
 		}
 		
-		return 1;
+		return 0;
 		
 	}
 
+		public double roundingNUmbers(double roundingNumber) {
+			
+			roundingNumber = Math.round(roundingNumber * 100.0) / 100.0;
+		return roundingNumber;
+	}
 }
