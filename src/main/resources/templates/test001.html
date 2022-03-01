@@ -88,6 +88,21 @@ footer {
 </table> -->
 
 
+<table class="container">
+  <!-- <tr>
+    <td>Student ID</td>
+    <td>Student Name22</td>
+  </tr> -->
+
+<!-- <div class="col-lg-3" th:object="${test}">
+    <select class="form-control" id="testOrder" name="testOrder">
+        <option value="">Select Test Order</option>
+        <option th:each="test : ${tests}"
+                th:value="${test.testCode}"
+                th:text="${test.testCode}+' : '+${test.testName}"></option>
+    </select>
+</div> -->
+
 
     <form method="Post">
       <div class="col-lg-3" th:object="${record}">
@@ -98,34 +113,10 @@ footer {
                       th:text="${record.name}"></option>
           </select>
       </div>
-
-
-
       <tr>
       <td><input type="submit"></td>
       </tr>
       </form>
-
-
-
-      <!-- <table class="container">
-        <tr>
-          <td>Phase</td>
-          <td>ATTINDX</td>
-          <td>ENGINDX</td>
-          <td>PerfINDEX</td>
-        </tr>
-        <tr th:each="studentResultDisplay: ${studentResultDisplays}">
-          <td th:text="${studentResultDisplay.phase}"/>
-          <td th:text="${studentResultDisplay.attentionIndex}"/>
-          <td th:text="${studentResultDisplay.engagementIndex}"/>
-          <td th:text="${studentResultDisplay.performanceIndex}"/>
-      </table> -->
-
-      <table class="container">
-        <tr th:each="resultRecor: ${resultRecord}">
-          <td th:text="${resultRecor}"></td>
-      </table>
 
 
 

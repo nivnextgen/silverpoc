@@ -161,7 +161,14 @@ word-break: keep-all;
         <h1>Evaluation Survey</h1>
         <h4>Student</h4>
         <input type="text" size=25 name="studentname"/>
-
+        <div class="col-lg-3" th:object="${record}">
+            <select class="form-control" id="testOrder" name="studentID">
+                <option value="">Select the Student</option>
+                <option th:each="record : ${records}"
+                        th:value="${record.id}"
+                        th:text="${record.name}"></option>
+            </select>
+        </div>
 
         <table>
           <tr>

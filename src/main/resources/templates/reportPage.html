@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Niv</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<!-- <meta charset="UTF-8">
+<meta charset="ISO-8859-1">
+<link th:href="@{/css/loginpage.css}" rel="stylesheet"/> -->
+
+
+<style>
+
+header {
+  background: #081c64;
+  height:60px;
+  color: white;
+}
+body {
+  margin:0;
+  padding:0;
+  font-family: Sans-Serif;
+  line-height: 1.5em;
+}
+
+.logoutLblPos{
+   position:fixed;
+   right:10px;
+   top:5px;
+}
+
+.homebutton{
+   position:fixed;
+   left:10px;
+   top:5px;
+}
+
+footer {
+  text-align: center;
+  background-color: #081c64;
+  color: white;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 5rem;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<!-- Header -->
+<header>
+  <h3></h3>
+  <p class="homebutton">Niv  Next Gen</p>
+  <p class="logoutLblPos">Logout</p>
+</header>
+
+<!-- Body -->
+
+<table class="container">
+  <tr>
+    <td>Room</td>
+    <td>Room Number</td>
+  </tr>
+  <tr th:each="record: ${records}">
+    <td th:text="${record}"></td>
+</table>
+
+<!-- <div class="container">
+  <h1>Reports for the user</h1>
+  <ul th:each="record : ${records}">
+    <li th:text="${record}"/>
+  </ul>
+</div> -->
+
+
+<!-- Footer -->
+<footer>
+  <p>Contact Us <a href="mailto:info@niv-thefoundation.com">Email</a></p>
+  <p>Copyright © 2022 NiV - All Rights Reserved.</p>
+</footer>
+
+</body>
+</html>

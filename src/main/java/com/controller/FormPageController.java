@@ -1,12 +1,23 @@
 package com.controller;
 
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import com.example.UserT;
 import com.service.IFormDetailsService;
 
 @Controller
@@ -14,10 +25,39 @@ public class FormPageController {
 
 	@Autowired
 	private IFormDetailsService formDetailsService;
+	
+	@Autowired
+	private DataSource dataSource;
 
 	@GetMapping("/formPage")
-	String homeIndexPage(HttpServletRequest request, HttpServletResponse response) {
+	String homeIndexPage(HttpServletRequest request, HttpServletResponse response, Map<String, Object> model ) {
 
+		
+		try (Connection connection = dataSource.getConnection()) {
+			System.out.println("******In DB connection reportsPage*****");
+			
+			// Db connection
+			Statement stmt = connection.createStatement();
+			
+			// Query
+			ResultSet rsemail = stmt.executeQuery("SELECT student_id,student_name FROM STUDENTS");
+			List<UserT> studentListOutput = new ArrayList<UserT>();
+			while (rsemail.next()) {
+				UserT user1 = new UserT();
+				user1.setName(rsemail.getString("student_name"));
+				user1.setId(rsemail.getInt("student_id"));
+				studentListOutput.add(user1);
+			}
+			
+			// Insert Data
+			model.put("records", studentListOutput);	
+
+	    } catch (Exception e) {
+	    	System.out.println(e);
+	      return "error";
+	    }
+		
+		
 		return "formPage";
 	}
 
@@ -25,6 +65,10 @@ public class FormPageController {
 	String homepage(HttpServletRequest request, HttpServletResponse response) {
 
 		String studentName = request.getParameter("studentname");
+		int studentId = Integer.valueOf(request.getParameter("studentID"));
+		
+		System.out.println("Value of studentId is :: " +studentId);
+
 
 		// SOC
 		int q1 = Integer.valueOf(request.getParameter("question1"));
@@ -107,8 +151,16 @@ public class FormPageController {
 		
 		int[] ansSOCValues = {q1,q2,q3,q4,q5,q6,q7,q8,q9,q10,q11,q12,q13,q14,q15,q16,q17,q18,q19,q20,q21,q22,q23,q24,q25,q26,q27,q28,q29,q30,q31,q32,q33,q34,q35,q36,q37,q38,q39,q40,q41,q42,q43,q44,q45,q46,q47,q48,q49,q50,q51,q52,q53,q54,q55,q56,q57,q58,q59,q60,q61,q62};
 
-		formDetailsService.ansValues(ansSOCValues);
+		formDetailsService.ansValues(studentId, ansSOCValues);
 		
+		
+		try {
+			System.out.println("******** going to reports page ********");
+			response.sendRedirect("/reportsPage");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return "formPage";
 
 	}

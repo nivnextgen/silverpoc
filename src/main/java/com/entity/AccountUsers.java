@@ -1,5 +1,6 @@
-package com.model;
+package com.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,14 +12,19 @@ import javax.persistence.Table;
 public class AccountUsers {
 
 	@Id
+	@Column(name="USER_ID")
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int USER_ID;
 	
-
+	@Column(name="USERNAME")
 	private String USERNAME;
+	@Column(name="UPASSWORD")
 	private String UPASSWORD;
+	@Column(name="UPASSWORD")
 	private String EMAIL;
+	@Column(name="IS_ACTIVE")
 	private Boolean IS_ACTIVE;
+	@Column(name="COMMENTS")
 	private String COMMENTS;
 
 	

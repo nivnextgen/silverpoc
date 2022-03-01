@@ -1,6 +1,7 @@
 package com.controller;
 
 
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -45,20 +46,28 @@ public class StudentPageController {
 			studentCAge = formatter.parse(studentDOB);
 			int age = getAge(studentCAge);
 			
-
-			System.out.println("studentName :: " + studentName);
-	        System.out.println("studentDOB  :: "+studentDOB);
-	        System.out.println("studentCAge  :: "+studentCAge);
-			System.out.println("studentAge :: " + age);
-			System.out.println("studentGender :: " + studentGender);
-			System.out.println("studentClass :: " + parentName);
-			System.out.println("studentAge :: " + parentEmail);
-			System.out.println("parentNumber :: " + parentNumber );
+//			System.out.println("studentName :: " + studentName);
+//	        System.out.println("studentDOB  :: "+studentDOB);
+//	        System.out.println("studentCAge  :: "+studentCAge);
+//			System.out.println("studentAge :: " + age);
+//			System.out.println("studentGender :: " + studentGender);
+//			System.out.println("studentClass :: " + parentName);
+//			System.out.println("studentAge :: " + parentEmail);
+//			System.out.println("parentNumber :: " + parentNumber );
 			
 			
-			// TODO Write logic to post data to DB
-			
+			// logic to post data to DB
 			boolean datainDB = StudentPageController.studentDetails(studentName, studentCAge, age, studentGender, parentName, parentEmail, parentNumber);
+			
+			try {
+				if (datainDB) {
+					response.sendRedirect("/homePage");
+				}
+				
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block

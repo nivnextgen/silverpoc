@@ -1,30 +1,54 @@
 package com.service;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Map;
+
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
+
+import com.example.EvalRawscoreInst;
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 
 @Service
 public class FormDetailsService implements IFormDetailsService {
+	
+//	@Value("${spring.datasource.url}")
+//	  private String dbUrl;
+
+	@Autowired
+	private DataSource dataSource;
 
 	@Override
-	public boolean ansValues(int[] ansValues) {
+	public boolean ansValues(int studentIdfromUI, int[] ansValues) {
 
-		for (int num : ansValues) {
-			System.out.println("The loop all the solutions are  " + num);
-		}
+//		for (int num : ansValues) {
+//			System.out.println("The loop all the solutions are  " + num);
+//		}
 		
 		// Raw Data to DB
+		evaldbUpdate(studentIdfromUI, ansValues);
 		
 		// Calculate Raw score and to DB
-		boolean rawScoreAssert = rawScoreEval(ansValues);
+		boolean rawScoreAssert = rawScoreEval(studentIdfromUI, ansValues);
 		
 		// Calculate T score and to DB
-		boolean tScoreAssert = tScore();
+//		boolean tScoreAssert = tScore(studentIdfromUI);
 		
 		// Calculate NIV score and to DB
-		boolean nivScoreAssert = nivScore();
+//		boolean nivScoreAssert = nivScore(studentIdfromUI);
 		
 		// Calculate index scores and to DB
-		boolean indexScoreAssert = indexScores();
+	//	boolean indexScoreAssert = indexScores(studentIdfromUI);
 		
 		return true;
 
@@ -32,88 +56,67 @@ public class FormDetailsService implements IFormDetailsService {
 
 	// Constants dec scores
 	// For step 2
-	int SCO_RS, VIS_RS, HEA_RS, TOU_RS, TNS_RS, BOD_RS, BAL_RS, PLA_RS, FULL_RS;
 	String phase;
+	
 	// For step 3
-	int tSOCScore, tVISScore, tHEAScore, tTOUScore, tTnSScore, tBODScore, tBALScore, tPLAScore, totFullScore;
-	int nivSOC, nivVIS, nivHEA, nivTOU, nivTnS, nivBOD, nivBAL, nivPLA, nivFullScore;
-	double engISOC, engIVIS, engIHEA, engITOU, engITnS, engIBOD, engIBAL, engIPLA, engITotal;
-	double attISOC, attIVIS, attIHEA, attITOU, attITnS, attIBOD, attIBAL, attIPLA, attITotal;
-	double perfIndex;
+
 
 	// Step 1 Storing all the values in "form_eval"
 	public boolean formEval() {
 		
-		
-		
-				
 		return true;
 	}
 
 	// Step 2 Calculating group raw scores and store in "eval_rawscore"
-	public boolean rawScoreEval(int[] studentData) {
+	public boolean rawScoreEval(int studentIdfromUI, int[] studentData) {
 
-		
+		int SCO_RS = 0, VIS_RS=0, HEA_RS=0, TOU_RS=0, TNS_RS=0, BOD_RS=0, BAL_RS=0, PLA_RS=0, FULL_RS=0;
+
 		System.out.println("*********  Raw scores are as follows ***********");
 		
 		for (int i = 0; i < 10; i++) {
 			SCO_RS = studentData[i] + SCO_RS;
 		}
-		System.out.println("SCO_RS calculated score is " + SCO_RS);
 		
 		for (int i = 10; i < 17; i++) {
-			VIS_RS = studentData[i] + VIS_RS;
+			VIS_RS= studentData[i] + VIS_RS;
 		}
-		System.out.println("  ");
-		System.out.println("VIS_RS calculated score is " + VIS_RS);
 		
 		for (int i = 17; i < 24; i++) {
-			HEA_RS = studentData[i] + HEA_RS ;
+			HEA_RS = studentData[i] + HEA_RS;
 		}
-		System.out.println("  ");
-		System.out.println("HEA_RS calculated score is " +HEA_RS );
 		
 		for (int i = 24; i < 32; i++) {
-			TOU_RS = studentData[i] + TOU_RS ;
+			TOU_RS = studentData[i] + TOU_RS;
 		}
-		System.out.println("  ");
-		System.out.println("TOU_RS calculated score is " + TOU_RS);
 		
 		for (int i = 32 ; i < 36 ; i++) {
 			TNS_RS = studentData[i] + TNS_RS;
-		}
-		System.out.println("  ");
-		System.out.println("TNS_RS calculated score is " + TNS_RS);
-		
+		}	
 		
 		for (int i = 36 ; i < 43; i++) {
 			BOD_RS = studentData[i] + BOD_RS;
 		}
-		System.out.println("  ");
-		System.out.println("BOD_RS calculated score is " + BOD_RS);
-		
 		
 		for (int i = 43; i < 52; i++) {
 			BAL_RS = studentData[i] + BAL_RS;
 		}
-		System.out.println("  ");
-		System.out.println("BAL_RS calculated score is " + BAL_RS);
-		
 		
 		for (int i = 52; i < 62; i++) {
 			PLA_RS = studentData[i] + PLA_RS;
 		}
-		System.out.println("  ");
-		System.out.println("PLA_RS calculated score is " + PLA_RS);
-		
 		
 		FULL_RS = VIS_RS + HEA_RS + TOU_RS + TNS_RS + BOD_RS + BAL_RS;
 		
 		System.out.println("FULL_RS calculated score is " + FULL_RS);
 		
+		// Update in DB
+		rawScoredbUpdate(studentIdfromUI, SCO_RS, VIS_RS, HEA_RS, TOU_RS, TNS_RS, BOD_RS, BAL_RS, PLA_RS, FULL_RS);
 		
 
 		System.out.println("*********  END ***********");
+		
+		tScore(studentIdfromUI, SCO_RS, VIS_RS, HEA_RS, TOU_RS, TNS_RS, BOD_RS, BAL_RS, PLA_RS, FULL_RS);
 		
 		return true;
 	}
@@ -122,38 +125,32 @@ public class FormDetailsService implements IFormDetailsService {
 	// Need to eval TSCORE, NIVSCORE
 
 	// Step 3.1 eval TSCORE for all modules
-	public boolean tScore() {
+	public boolean tScore(int studentIdfromUI, int tempSCO_RS, int tempVIS_RS, int tempHEA_RS, int tempTOU_RS, int tempTNS_RS, int tempBOD_RS, int tempBAL_RS, int tempPLA_RS, int tempFULL_RS) {
+			
+		int temptSOCScore, temptVISScore, temptHEAScore, temptTOUScore, temptTnSScore, temptBODScore, temptBALScore, temptPLAScore, temptotFullScore;
 
-			tSOCScore = tScoreRange("SCO_RS",SCO_RS);
-			tVISScore= tScoreRange("VIS_RS",VIS_RS);
-			tHEAScore= tScoreRange("HEA_RS",HEA_RS);
-			tTOUScore= tScoreRange("TOU_RS",TOU_RS);
-			tBODScore= tScoreRange("BOD_RS",BOD_RS);
-			tBALScore= tScoreRange("BAL_RS",BAL_RS);
-			tPLAScore= tScoreRange("PLA_RS",PLA_RS);
-			totFullScore= tScoreRange("FULL_RS",FULL_RS);
-			
-			System.out.println("  ");
-			System.out.println("*********  T scores are as follows ***********");
-			
-			System.out.println("tSOCScore score is " + tSOCScore);
-			System.out.println("tVISScore score is " + tVISScore);
-			System.out.println("tHEAScore score is " + tHEAScore);
-			System.out.println("tTOUScore score is " + tTOUScore);
-			System.out.println("tBODScore score is " + tBODScore);
-			System.out.println("tBALScore score is " + tBALScore);
-			System.out.println("tPLAScore score is " + tPLAScore);
-			System.out.println("totFullScore score is " + totFullScore);
+
+			temptSOCScore = tScoreRange("SCO_RS", tempSCO_RS);
+			temptVISScore= tScoreRange("VIS_RS", tempVIS_RS);
+			temptHEAScore= tScoreRange("HEA_RS", tempHEA_RS);
+			temptTOUScore= tScoreRange("TOU_RS", tempTOU_RS);
+			temptTnSScore= tempTNS_RS;
+			temptBODScore= tScoreRange("BOD_RS", tempBOD_RS);
+			temptBALScore= tScoreRange("BAL_RS", tempBAL_RS);
+			temptPLAScore= tScoreRange("PLA_RS", tempPLA_RS);
+			temptotFullScore= tScoreRange("FULL_RS", tempFULL_RS);
 			
 			System.out.println("*********  END ***********");
-
+			
+			otherScoredbUpdate(studentIdfromUI, "TSCORE",temptSOCScore, temptVISScore, temptHEAScore, temptTOUScore, temptBODScore, temptBALScore, temptPLAScore, temptotFullScore);
 		
+			nivScore(studentIdfromUI, temptSOCScore, temptVISScore, temptHEAScore, temptTOUScore, temptTnSScore, temptBODScore, temptBALScore, temptPLAScore, temptotFullScore);
 		return true;
 	}
 
 	// Step 3.2 eval NIVSCORE for all modules
-	public boolean nivScore() {
-		
+	public boolean nivScore(int studentIdfromUI, int tSOCScore, int tVISScore, int tHEAScore, int tTOUScore, int tTnSScore, int tBODScore, int tBALScore, int tPLAScore, int totFullScore) {
+		int nivSOC, nivVIS, nivHEA, nivTOU, nivTnS, nivBOD, nivBAL, nivPLA, nivFullScore;
 		nivSOC = nivScoreRange(tSOCScore);
 		nivVIS = nivScoreRange(tVISScore);
 		nivHEA = nivScoreRange(tHEAScore);
@@ -164,27 +161,23 @@ public class FormDetailsService implements IFormDetailsService {
 		nivPLA = nivScoreRange(tPLAScore);
 		nivFullScore = nivScoreRange(totFullScore);
 		
-		System.out.println("  ");
-		System.out.println("*********  Niv scores are as follows ***********");
-		
-		System.out.println("nivSOC score is " + nivSOC);
-		System.out.println("nivVIS score is " + nivVIS);
-		System.out.println("nivHEA score is " + nivHEA);
-		System.out.println("nivTOU score is " + nivTOU);
-		System.out.println("nivTnS score is " + nivTnS);
-		System.out.println("nivBOD score is " + nivBOD);
-		System.out.println("nivPLA score is " + nivPLA);
-		System.out.println("nivBAL score is " + nivBAL);
-		System.out.println("nivFullScore score is " + nivFullScore);
-		
-		System.out.println("*********  END ***********");
-		
+		System.out.println("*********  nivSOC  ***********" +nivSOC);
 
+		
+		otherScoredbUpdate(studentIdfromUI, "NIVSCORE", nivSOC, nivVIS, nivHEA, nivTOU, nivBOD, nivBAL, nivPLA, nivFullScore);
+		indexScores(studentIdfromUI, nivSOC, nivVIS, nivHEA, nivTOU, nivBOD, nivBAL, nivPLA, nivFullScore);
 		return true;
 	}
 
 	// Step 3.3 eval ENGINDX, ATTINDX & PerfINDEX for all modules
-	public boolean indexScores() {
+	public boolean indexScores(int studentIdfromUI, int nivSOC, int nivVIS, int nivHEA, int nivTOU, int nivBOD, int nivBAL, int nivPLA, int nivFullScore) {
+//		double engISOC, engIVIS, engIHEA, engITOU, engITnS, engIBOD, engIBAL, engIPLA, engITotal;
+//		double attISOC, attIVIS, attIHEA, attITOU, attITnS, attIBOD, attIBAL, attIPLA, attITotal;
+//		double perfIndex;
+		
+		double engISOC=0, engIVIS=0, engIHEA=0, engITOU=0, engITnS=0, engIBOD=0, engIBAL=0, engIPLA=0, engITotal;
+		double attISOC=0, attIVIS=0, attIHEA=0, attITOU=0, attITnS=0, attIBOD=0, attIBAL=0, attIPLA=0, attITotal;
+		double perfIndex=0;
 
 		engISOC = roundingNUmbers((15.15 * nivSOC) / 100);
 		engIVIS = roundingNUmbers((15.15 * nivVIS) / 100);
@@ -209,6 +202,9 @@ public class FormDetailsService implements IFormDetailsService {
 		System.out.println("engITotal score is " + engITotal);
 		
 		System.out.println("*********  END ***********");
+		
+		indexScoredbUpdate(studentIdfromUI, "ENGINDX", engISOC, engIVIS, engIHEA, engITOU, engIBOD, engIBAL, engIPLA, engITotal);
+
 
 		attISOC = roundingNUmbers((18.51 * nivSOC) / 100);
 		attIVIS = roundingNUmbers((24.70 * nivVIS) / 100);
@@ -233,12 +229,19 @@ public class FormDetailsService implements IFormDetailsService {
 		
 		System.out.println("*********  END ***********");
 		
+		
+		indexScoredbUpdate(studentIdfromUI, "ATTINDX", attISOC, attIVIS, attIHEA, attITOU, attIBOD, attIBAL, attIPLA, attITotal);
+
+		
 		// Step 4 eval performance index
 		perfIndex = (engITotal + engITotal) / 2;
 		System.out.println("  ");
 		System.out.println("*********  Performance index score is ***********");
 		System.out.println("perfIndex score is " + perfIndex);
 		System.out.println("*********  END ***********");
+		
+		indexScoredbUpdate(studentIdfromUI, "PERFINDX", 0, 0, 0, 0, 0, 0, 0, perfIndex);
+
 		
 		return true;
 	}
@@ -250,9 +253,11 @@ public class FormDetailsService implements IFormDetailsService {
 	
 	// T score Range
 	public int tScoreRange(String scoreType, int inputScore) {
-		
+
+		int val = inputScore;
+
 		if(scoreType.equals("SCO_RS")) {
-			switch (SCO_RS) {
+			switch (val) {
 			case 40: return 80;
 			case 39: return 80;
 			case 38: return 78;
@@ -289,7 +294,7 @@ public class FormDetailsService implements IFormDetailsService {
 		}
 		
 		if(scoreType.equals("VIS_RS")) {
-			switch (VIS_RS) {
+			switch (val) {
 			case 26: return 80;
 			case 28: return 80;
 			case 25: return 79;
@@ -317,7 +322,7 @@ public class FormDetailsService implements IFormDetailsService {
 		
 		
 		if(scoreType.equals("HEA_RS")) {
-			switch (HEA_RS) {
+			switch (val) {
 			case 28: return 80;
 			case 27: return 80;
 			case 26: return 80;
@@ -345,7 +350,7 @@ public class FormDetailsService implements IFormDetailsService {
 		}
 		
 		if(scoreType.equals("TOU_RS")) {
-			switch (TOU_RS) {
+			switch (val) {
 			case 32: return 80;
 			case 31: return 80;
 			case 30: return 80;
@@ -376,7 +381,7 @@ public class FormDetailsService implements IFormDetailsService {
 		}
 		
 		if(scoreType.equals("BOD_RS")) {
-			switch (BOD_RS) {
+			switch (val) {
 			case 32: return 80;
 			case 31: return 80;
 			case 30: return 80;
@@ -408,7 +413,7 @@ public class FormDetailsService implements IFormDetailsService {
 		}
 		
 		if(scoreType.equals("BAL_RS")) {
-			switch (BAL_RS) {
+			switch (val) {
 			case 36: return 80;
 			case 35: return 80;
 			case 34: return 80;
@@ -442,7 +447,7 @@ public class FormDetailsService implements IFormDetailsService {
 		}
 		
 		if(scoreType.equals("PLA_RS")) {
-			switch (PLA_RS) {
+			switch (val) {
 			case 40: return 80;
 			case 39: return 79;
 			case 38: return 78;
@@ -479,7 +484,7 @@ public class FormDetailsService implements IFormDetailsService {
 		}
 		
 		if(scoreType.equals("FULL_RS")) {
-			switch (FULL_RS) {
+			switch (val) {
 	//		case 130 -- case 168: return 80;
 	//		case 119 -- case 129: return 79;
 			case 117: case 118: return 78;
@@ -521,15 +526,15 @@ public class FormDetailsService implements IFormDetailsService {
 			// 			
 
 			default: 
-				if (FULL_RS >= 130 && FULL_RS <= 168)
+				if (val >= 130 && val <= 168)
 					return 80; 
-				else if (FULL_RS >= 119  && FULL_RS <= 129)
+				else if (val >= 119  && val <= 129)
 					return 79; 
-				else if (FULL_RS >= 109 && FULL_RS <= 114)
+				else if (val >= 109 && val <= 114)
 					return 76; 
-				else if (FULL_RS >= 99 && FULL_RS <=  107)
+				else if (val >= 99 && val <=  107)
 					return 74; 
-				else if (FULL_RS >= 88 && FULL_RS <= 93)
+				else if (val >= 88 && val <= 93)
 					return 71; 
 //				else if (FULL_RS >=  && FULL_RS <= )
 //					return 0; 
@@ -598,4 +603,157 @@ public class FormDetailsService implements IFormDetailsService {
 			roundingNumber = Math.round(roundingNumber * 100.0) / 100.0;
 		return roundingNumber;
 	}
+		
+	  private String evaldbUpdate(int studentIdInsert, int[] evaldbValues) {
+		    try (Connection connection = dataSource.getConnection()) {
+		    	System.out.println("******In DB connection *****");
+	//	      Statement stmt = connection.createStatement();
+		      
+		      int q1,q2,q3,q4,q5,q6,q7,q8,q9,q10,q11,q12,q13,q14,q15,q16,q17,q18,q19,q20,q21,q22,q23,q24,q25,q26,q27,q28,q29,q30,q31,q32,q33,q34,q35,q36,q37,q38,q39,q40,q41,q42,q43,q44,q45,q46,q47,q48,q49,q50,q51,q52,q53,q54,q55,q56,q57,q58,q59,q60,q61,q62;
+		      q1 = evaldbValues[0];
+		      q2 = evaldbValues[1];
+		      q3 = evaldbValues[2];
+		      q4 = evaldbValues[3];
+		      q5 = evaldbValues[4];
+		      q6 = evaldbValues[5];
+		      q7 = evaldbValues[6];
+		      q8 = evaldbValues[7];
+		      q9 = evaldbValues[8];
+		      q10 = evaldbValues[9];
+		      q11 = evaldbValues[10];
+		      q12 = evaldbValues[11];
+		      q13 = evaldbValues[12];
+		      q14 = evaldbValues[13];
+		      q15 = evaldbValues[14];
+		      q16 = evaldbValues[15];
+		      q17 = evaldbValues[16];
+		      q18 = evaldbValues[17];
+		      q19 = evaldbValues[18];
+		      q20 = evaldbValues[19];
+		      q21 = evaldbValues[20];
+		      q22 = evaldbValues[21];
+		      q23 = evaldbValues[22];
+		      q24 = evaldbValues[23];
+		      q25 = evaldbValues[24];
+		      q26 = evaldbValues[25];
+		      q27 = evaldbValues[26];
+		      q28 = evaldbValues[27];
+		      q29 = evaldbValues[28];
+		      q30 = evaldbValues[29];
+		      q31 = evaldbValues[30];
+		      q32 = evaldbValues[31];
+		      q33 = evaldbValues[32];
+		      q34 = evaldbValues[33];
+		      q35 = evaldbValues[34];
+		      q36 = evaldbValues[35];
+		      q37 = evaldbValues[36];
+		      q38 = evaldbValues[37];
+		      q39 = evaldbValues[38];
+		      q40 = evaldbValues[39];
+		      q41 = evaldbValues[40];
+		      q42 = evaldbValues[41];
+		      q43 = evaldbValues[42];
+		      q44 = evaldbValues[43];
+		      q45 = evaldbValues[44];
+		      q46 = evaldbValues[45];
+		      q47 = evaldbValues[46];
+		      q48 = evaldbValues[47];
+		      q49 = evaldbValues[48];
+		      q50 = evaldbValues[49];
+		      q51 = evaldbValues[50];
+		      q52 = evaldbValues[51];
+		      q53 = evaldbValues[52];
+		      q54 = evaldbValues[53];
+		      q55 = evaldbValues[54];
+		      q56 = evaldbValues[55];
+		      q57 = evaldbValues[56];
+		      q58 = evaldbValues[57];
+		      q59 = evaldbValues[58];
+		      q60 = evaldbValues[59];
+		      q61 = evaldbValues[60];
+		      q62 = evaldbValues[61];
+		      
+		      String statement1 = "INSERT INTO form_eval VALUES ("
+		    		  +studentIdInsert
+		    		  +",1,"
+					  +q1 +","  +q2+","  +q3+","  +q4+","  +q5+","  +q6+","  +q7+","  +q8+","  +q9+","  +q10+","  +q11+","  +q12+","  +q13+","  +q14+","  +q15+","  +q16+","  +q17+","  +q18+","  +q19+","  +q20+","  +q21+","  +q22+","  +q23+","  +q24+","  +q25+","  +q26+","  +q27+","  +q28+","  +q29+","  +q30+","  +q31+","  +q32+","  +q33+","  +q34+","  +q35+","  +q36+","  +q37+","  +q38+","  +q39+","  +q40+","  +q41+","  +q42+","  +q43+","  +q44+","  +q45+","  +q46+","  +q47+","  +q48+","  +q49+","  +q50+","  +q51+","  +q52+","  +q53+","  +q54+","  +q55+","  +q56+","  +q57+","  +q58+","  +q59+","  +q60+","  +q61+","  +q62		    		  			
+							+")";
+		      
+		      
+              PreparedStatement q = connection.prepareStatement(statement1);
+              q.executeUpdate();
+		      return "db";
+		    } catch (Exception e) {
+		    	System.out.println(e);
+		      return "error";
+		    }
+		  }
+	  
+	  private String rawScoredbUpdate(int studentIdInsert, int s1, int s2,int s3, int s4, int s5, int s6, int s7, int s8, int s9 ) {
+		  // SCO_RS, VIS_RS, HEA_RS, TOU_RS, TNS_RS, BOD_RS, BAL_RS, PLA_RS, FULL_RS
+		    try (Connection connection = dataSource.getConnection()) {
+		      System.out.println("******In DB execution rawScoredbUpdate *****");	      
+		      String statement1 = "INSERT INTO eval_rawscore VALUES ("
+		      		+ studentIdInsert
+		      		+ ",1,"
+		    		  +s1 +"," +s2 +"," +s3 +"," +s4 +"," +s5 +"," +s6 +"," +s7 +"," +s8 +"," +s9
+		              +")";
+		          PreparedStatement q = connection.prepareStatement(statement1);
+		          q.executeUpdate();
+		      return "db";
+		    } catch (Exception e) {
+		      System.out.println(e);
+		      return "error";
+		    }
+		  }
+		
+	  private String otherScoredbUpdate(int studentIdfromUI, String scoreType, int tscr1, int tscr2,int tscr3, int tscr4, int tscr5, int tscr6, int tscr7, int tscr8) {
+		    try (Connection connection = dataSource.getConnection()) {
+		      System.out.println("******In DB execution T Score  *****");
+		      String statement1 = "INSERT INTO total_scores VALUES ("
+		      		  + studentIdfromUI
+		      		  + ",1,'"
+		    		  +scoreType +"',"
+		    		  +tscr1 +"," +tscr2 +"," +tscr3 +"," +tscr4 +"," +tscr5 +"," +tscr6 +"," +tscr7 +"," +tscr8
+		              +")";
+		          PreparedStatement q = connection.prepareStatement(statement1);
+		          q.executeUpdate();
+		      return "db";
+		    } catch (Exception e) {
+		      System.out.println(e);
+		      return "error";
+		    }
+		  }
+	  
+	  private String indexScoredbUpdate(int studentIdfromUI, String scoreNType, double inxsc1, double inxsc2,double inxsc3, double inxsc4, double inxsc5, double inxsc6, double inxsc7, double inxsc8) {
+		    try (Connection connection = dataSource.getConnection()) {
+		      System.out.println("******In DB execution scoreNType  *****  " +scoreNType);
+		      String statement1 = "INSERT INTO total_scores VALUES ("
+		      		+ studentIdfromUI
+		      		+ ",1,'"
+		    		  +scoreNType +"',"
+		    		  +inxsc1 +"," +inxsc2 +"," +inxsc3 +"," +inxsc4 +"," +inxsc5 +"," +inxsc6 +"," +inxsc7 +"," +inxsc8
+		              +")";
+		          PreparedStatement q = connection.prepareStatement(statement1);
+		          q.executeUpdate();
+		      return "db";
+		    } catch (Exception e) {
+		      System.out.println(e);
+		      return "error";
+		    }
+		  }
+		
+	  
+//		@Bean
+//		  public DataSource dataSource() throws SQLException {
+//		      System.out.println("******In line 62*****" +dbUrl);
+//			  if (dbUrl == null || dbUrl.isEmpty()) {
+//		      return new HikariDataSource();
+//		    } else {
+//		      HikariConfig config = new HikariConfig();
+//		      config.setJdbcUrl(dbUrl);
+//		      System.out.println("******In line 87*****" +dbUrl);
+//		      return new HikariDataSource(config);
+//		    }
+//		  }
 }

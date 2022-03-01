@@ -34,13 +34,13 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Map;
 
-@ComponentScan(basePackages = {"com.controller","com.service","com.model","com.repository"})
+@ComponentScan(basePackages = {"com.controller","com.service","com.model","com.repository","com.entity","com.repository.StudentsRepository"})
 @SpringBootApplication
 public class Main {
 
-//  @Value("${spring.datasource.url}")
-//  private String dbUrl;
-//
+  @Value("${spring.datasource.url}")
+  private String dbUrl;
+
 //  @Autowired
 //  private DataSource dataSource;
 
@@ -73,15 +73,15 @@ public class Main {
 //    }
 //  }
 //
-//  @Bean
-//  public DataSource dataSource() throws SQLException {
-//    if (dbUrl == null || dbUrl.isEmpty()) {
-//      return new HikariDataSource();
-//    } else {
-//      HikariConfig config = new HikariConfig();
-//      config.setJdbcUrl(dbUrl);
-//      return new HikariDataSource(config);
-//    }
-//  }
+  @Bean
+  public DataSource dataSource() throws SQLException {
+    if (dbUrl == null || dbUrl.isEmpty()) {
+      return new HikariDataSource();
+    } else {
+      HikariConfig config = new HikariConfig();
+      config.setJdbcUrl(dbUrl);
+      return new HikariDataSource(config);
+    }
+  }
 
 }

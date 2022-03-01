@@ -20,12 +20,12 @@ import com.zaxxer.hikari.HikariDataSource;
 
 @Controller
 public class SampleDBOperationController {
-	  @Value("${spring.datasource.url}")
-	  private String dbUrl;
-
+//	  @Value("${spring.datasource.url}")
+//	  private String dbUrl;
+//
 	  @Autowired
 	  private DataSource dataSource;
-	
+//	
 	@RequestMapping("/test1")
 	  String db(Map<String, Object> model) {
 	    try (Connection connection = dataSource.getConnection()) {
@@ -56,19 +56,19 @@ public class SampleDBOperationController {
 	      return "error";
 	    }
 	  }
-	
-	  @Bean
-	  public DataSource dataSource() throws SQLException {
-	      System.out.println("******In line 62*****" +dbUrl);
-		  if (dbUrl == null || dbUrl.isEmpty()) {
-	      return new HikariDataSource();
-	    } else {
-	      HikariConfig config = new HikariConfig();
-	      config.setJdbcUrl(dbUrl);
-	      System.out.println("******In line 87*****" +dbUrl);
-	      return new HikariDataSource(config);
-	    }
-	  }
+//	
+//	  @Bean
+//	  public DataSource dataSource() throws SQLException {
+//	      System.out.println("******In line 62*****" +dbUrl);
+//		  if (dbUrl == null || dbUrl.isEmpty()) {
+//	      return new HikariDataSource();
+//	    } else {
+//	      HikariConfig config = new HikariConfig();
+//	      config.setJdbcUrl(dbUrl);
+//	      System.out.println("******In line 87*****" +dbUrl);
+//	      return new HikariDataSource(config);
+//	    }
+//	  }
 
 
 }
