@@ -673,15 +673,110 @@ public class FormDetailsService implements IFormDetailsService {
 		      q61 = evaldbValues[60];
 		      q62 = evaldbValues[61];
 		      
+		      // Updating the characteristic of the students score  // Ravi Write
+		      String cq0, cq1, cq2, cq3, cq4, cq5, cq6, cq7, cq8, cq9, cq10, cq11, cq12, cq13, cq14, cq15, cq16, cq17, cq18, cq19, cq20, cq21, cq22, cq23, cq24, cq25, cq26, cq27, cq28, cq29, cq30, cq31, cq32, cq33, cq34, cq35, cq36, cq37, cq38, cq39, cq40, cq41, cq42, cq43, cq44, cq45, cq46, cq47, cq48, cq49, cq50, cq51, cq52, cq53, cq54, cq55, cq56, cq57, cq58, cq59, cq60, cq61 ;
+		      cq0 = cq1 = cq2 = cq3 = cq4 = cq5 = cq6 = cq7 = cq8 = cq9 = cq10 = cq11 = cq12 = cq13 = cq14 = cq15 = cq16 = cq17 = cq18 = cq19 = cq20 = cq21 = cq22 = cq23 = cq24 = cq25 = cq26 = cq27 = cq28 = cq29 = cq30 = cq31 = cq32 = cq33 = cq34 = cq35 = cq36 = cq37 = cq38 = cq39 = cq40 = cq41 = cq42 = cq43 = cq44 = cq45 = cq46 = cq47 = cq48 = cq49 = cq50 = cq51 = cq52 = cq53 = cq54 = cq55 = cq56 = cq57 = cq58 = cq59 = cq60 = cq61 = "0";
+		      
+		      String IDEACHA	=	"Ideation";
+		      String MPCHAR		=	"Motor Planning";
+		      String ORCHAR		=	"Over Responsive";
+		      String PERCCHAR	=	"Perception";
+		      String PCCHAR		=	"Postural Control";
+		      String SEKCHAR	=	"Seeking";
+		      String URCHAR		=	"Under Responsive";
+		      System.out.println("Print setting up ");
+		      
+		      for(int charInt = 10; charInt < 62; charInt++) {
+			      System.out.println("Print for loop " +charInt);
+		    	  
+		    	  if(evaldbValues[charInt] > 2 ){	      
+		    		  if (charInt == 53){ cq53 = IDEACHA;}  // Ideation
+		    		  if (charInt == 59){ cq59 = IDEACHA;}
+		    		  if (charInt == 60){ cq60 = IDEACHA;}
+		    		  if (charInt == 61){ cq61 = IDEACHA;}	 
+		    		  
+		    		  if (charInt == 52){ cq52  = MPCHAR;}	// Motor Planning
+		    		  if (charInt == 54){ cq54  = MPCHAR;}
+		    		  if (charInt == 55){ cq55  = MPCHAR;}
+		    		  if (charInt == 56){ cq56  = MPCHAR;}
+		    		  if (charInt == 57){ cq57  = MPCHAR;}
+		    		  if (charInt == 58){ cq58  = MPCHAR;}
+		    		  
+		    		  if (charInt == 10){ cq10	 = ORCHAR;}	// Over Responsive
+		    		  if (charInt == 11){ cq11	 = ORCHAR;}
+		    		  if (charInt == 12){ cq12	 = ORCHAR;}
+		    		  if (charInt == 16){ cq16	 = ORCHAR;}
+		    		  if (charInt == 17){ cq17	 = ORCHAR;}
+		    		  if (charInt == 18){ cq18	 = ORCHAR;}
+		    		  if (charInt == 24){ cq24	 = ORCHAR;}
+		    		  if (charInt == 25){ cq25	 = ORCHAR;}
+		    		  if (charInt == 26){ cq26	 = ORCHAR;}
+		    		  if (charInt == 27){ cq27	 = ORCHAR;}
+		    		  if (charInt == 32){ cq32	 = ORCHAR;}
+		    		  
+		    		  if (charInt == 20 ){ cq20	= PERCCHAR;}	// Perception
+		    		  if (charInt == 34 ){ cq34	= PERCCHAR;}
+		    		  if (charInt == 36 ){ cq36	= PERCCHAR;}
+		    		  if (charInt == 38 ){ cq38	= PERCCHAR;}
+		    		  
+		    		  if (charInt == 44 ){ cq44 = PCCHAR;}	// Postural Control
+		    		  if (charInt == 47 ){ cq47 = PCCHAR;}
+		    		  if (charInt == 48 ){ cq48 = PCCHAR;}
+		    		  if (charInt == 49 ){ cq49 = PCCHAR;}
+		    		  if (charInt == 50 ){ cq50 = PCCHAR;}
+		    		  if (charInt == 51 ){ cq51 = PCCHAR;}
+		    		  
+		    		  if (charInt == 14 ){ cq14 = SEKCHAR;}	// Seeking
+		    		  if (charInt == 15 ){ cq15 = SEKCHAR;}
+		    		  if (charInt == 21 ){ cq21 = SEKCHAR;}
+		    		  if (charInt == 22 ){ cq22 = SEKCHAR;}
+		    		  if (charInt == 23 ){ cq23 = SEKCHAR;}
+		    		  if (charInt == 29 ){ cq29 = SEKCHAR;}
+		    		  if (charInt == 30 ){ cq30 = SEKCHAR;}
+		    		  if (charInt == 35 ){ cq35 = SEKCHAR;}
+		    		  if (charInt == 37 ){ cq37 = SEKCHAR;}
+		    		  if (charInt == 39 ){ cq39 = SEKCHAR;}
+		    		  if (charInt == 40 ){ cq40 = SEKCHAR;}
+		    		  if (charInt == 41 ){ cq41 = SEKCHAR;}
+		    		  if (charInt == 42 ){ cq42 = SEKCHAR;}
+		    		  if (charInt == 43 ){ cq43 = SEKCHAR;}
+		    		  if (charInt == 45 ){ cq45 = SEKCHAR;}
+		    		  if (charInt == 46 ){ cq46 = SEKCHAR;}
+		    		  
+		    		  if (charInt == 13 ){ cq13 = URCHAR;}	// Under Responsive
+		    		  if (charInt == 19 ){ cq19 = URCHAR;}
+		    		  if (charInt == 28 ){ cq28 = URCHAR;}
+		    		  if (charInt == 31 ){ cq31 = URCHAR;}
+		    		  if (charInt == 33 ){ cq33 = URCHAR;}
+		    	  
+		    	  }
+		      }
+		      
+		      System.out.println("Print before the char db operation");
+		      
+		      // Updating characteristic form the scores
+		      String charStatement1 = "INSERT INTO student_charst VALUES ("
+		    		  +studentIdInsert
+		    		  +",1,'"
+		    		  +cq0 +"','"  +cq1 +"','"  +cq2+"','"  +cq3+"','"  +cq4+"','"  +cq5+"','"  +cq6+"','"  +cq7+"','"  +cq8+"','"  +cq9+"','"  +cq10+"','"  +cq11+"','"  +cq12+"','"  +cq13+"','"  +cq14+"','"  +cq15+"','"  +cq16+"','"  +cq17+"','"  +cq18+"','"  +cq19+"','"  +cq20+"','"  +cq21+"','"  +cq22+"','"  +cq23+"','"  +cq24+"','"  +cq25+"','"  +cq26+"','"  +cq27+"','"  +cq28+"','"  +cq29+"','"  +cq30+"','"  +cq31+"','"  +cq32+"','"  +cq33+"','"  +cq34+"','"  +cq35+"','"  +cq36+"','"  +cq37+"','"  +cq38+"','"  +cq39+"','"  +cq40+"','"  +cq41+"','"  +cq42+"','"  +cq43+"','"  +cq44+"','"  +cq45+"','"  +cq46+"','"  +cq47+"','"  +cq48+"','"  +cq49+"','"  +cq50+"','"  +cq51+"','"  +cq52+"','"  +cq53+"','"  +cq54+"','"  +cq55+"','"  +cq56+"','"  +cq57+"','"  +cq58+"','"  +cq59+"','"  +cq60+"','"  +cq61		    		  			
+		    		  +"')";
+              PreparedStatement cqdb1 = connection.prepareStatement(charStatement1);
+              cqdb1.executeUpdate();
+
+		      System.out.println("Print after the char db operation");
+
+		      // Updating the form questions scores
 		      String statement1 = "INSERT INTO form_eval VALUES ("
 		    		  +studentIdInsert
 		    		  +",1,"
-					  +q1 +","  +q2+","  +q3+","  +q4+","  +q5+","  +q6+","  +q7+","  +q8+","  +q9+","  +q10+","  +q11+","  +q12+","  +q13+","  +q14+","  +q15+","  +q16+","  +q17+","  +q18+","  +q19+","  +q20+","  +q21+","  +q22+","  +q23+","  +q24+","  +q25+","  +q26+","  +q27+","  +q28+","  +q29+","  +q30+","  +q31+","  +q32+","  +q33+","  +q34+","  +q35+","  +q36+","  +q37+","  +q38+","  +q39+","  +q40+","  +q41+","  +q42+","  +q43+","  +q44+","  +q45+","  +q46+","  +q47+","  +q48+","  +q49+","  +q50+","  +q51+","  +q52+","  +q53+","  +q54+","  +q55+","  +q56+","  +q57+","  +q58+","  +q59+","  +q60+","  +q61+","  +q62		    		  			
+					  +q1 +","  +q2+","  +q3+","  +q4+","  +q5+","  +q6+","  +q7+","  +q8+","  +q9+","  +q10+","  +q11+","  +q12+","  +q13+","  +q14+","  +q15+","  +q16+","  +q17+","  +q18+","  +q19+","  +q20+","  +q21+","  +q22+","  +q23+","  +q24+","  +q25+","  +q26+","  +q27+","  +q28+","  +q29+","  +q30+","  +q31+","  +q32+","  +q33+","  +q34+","  +q35+","  +q36+","  +q37+","  +q38+","  +q39+","  +q40+","  +q41+","  +q42+","  +q43+","  +q44+","  +q45+","  +q46+","  +q47+","  +q48+","  +q49+","  +q50+","  +q51+","  +q52+","  +q53+","  +q54+","  +q55+","  +q56+","  +q57+","  +q58+","  +q59+","  +q60+","  +q61+","  +q62	    		  			
 							+")";
 		      
 		      
               PreparedStatement q = connection.prepareStatement(statement1);
               q.executeUpdate();
+		      System.out.println("Print regula db data done");
+
 		      return "db";
 		    } catch (Exception e) {
 		    	System.out.println(e);
